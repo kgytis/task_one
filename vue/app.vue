@@ -100,9 +100,11 @@ export default {
       // checking whether there is duplicate names + check whether input field is not empty
       if (!this.form.name) {
         this.form.isValid = false
-      } else if (foundName) {
+      } 
+      else if (foundName) {
         this.form.nameIsValid = false
-      } else {
+      }
+       else {
         // if validations are passed, validation messages are cleared
         this.clearValidity()
         // adding new section
@@ -168,8 +170,8 @@ export default {
       // search whether name in form exists in already applied sections in uci file
       const foundName = names.find(e => e === name)
       if (typeof (foundName) === 'undefined') {
-        return true
-      } else return false
+        return false
+      } else return true
     }
   }
 }
