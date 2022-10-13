@@ -71,7 +71,6 @@ export default {
       required: true
     }
   },
-  emits: ['closeModal'],
   methods: {
     closeModal () {
       this.$emit('closeModal')
