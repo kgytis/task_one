@@ -7,7 +7,13 @@
         type="test"
         :collapsible="false"
         v-slot="{ s }"
+        @change-protocol="event"
       >
+        <vuci-form-item-dummy
+          :uci-section="s"
+          label="Interface name:"
+          name="name"
+        />
         <vuci-form-item-select
           :uci-section="s"
           label="Protocol"
@@ -16,13 +22,6 @@
           initial="dhcp"
         >
         </vuci-form-item-select>
-
-        <vuci-form-item-input
-          :uci-section="s"
-          label="Interface name:"
-          name="name"
-          rules="hostname"
-        />
         <vuci-form-item-input
           :uci-section="s"
           label="Address"
@@ -74,6 +73,18 @@ export default {
   methods: {
     closeModal () {
       this.$emit('closeModal')
+    },
+    event (self) {
+      if (self.model === 'dhcp') {
+        this.$uci.set('task_one', this.sectionId, 'address', '')
+        this.$uci.set('task_one', this.sectionId, 'gateway', '')
+        this.$uci.set('task_one', this.sectionId, 'dns', '')
+        this.$uci.set('task_one', this.sectionId, 'netmask', '')
+        // don't use this at home, it's a workaround
+        this.$uci.set('task_one', this.sectionId, 'workaround', '')
+      } else {
+        this.$uci.reset()
+      }
     }
   }
 }

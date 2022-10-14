@@ -100,11 +100,9 @@ export default {
       // checking whether there is duplicate names + check whether input field is not empty
       if (!this.form.name) {
         this.form.isValid = false
-      } 
-      else if (foundName) {
+      } else if (foundName) {
         this.form.nameIsValid = false
-      }
-       else {
+      } else {
         // if validations are passed, validation messages are cleared
         this.clearValidity()
         // adding new section
@@ -115,6 +113,7 @@ export default {
         const sid = sections[lastIndex]['.name']
         // setting name value of last section to input value
         this.$uci.set('task_one', sid, 'name', this.form.name)
+        this.$uci.set('task_one', sid, 'protocol', 'dhcp')
         // saving all changes to uci file
         await this.$uci.save().then(() => {
           // applying all changes to uci file
@@ -172,6 +171,9 @@ export default {
       if (typeof (foundName) === 'undefined') {
         return false
       } else return true
+    },
+    increment () {
+      return this.counter++
     }
   }
 }
